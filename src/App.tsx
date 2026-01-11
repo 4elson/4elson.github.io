@@ -1,35 +1,58 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import Hero from "./components/Hero";
+import About from "./components/About";
+import Skills from "./components/Skills";
+import Experience from "./components/Experience";
+import Contact from "./components/Contact";
+import Terminal from "./components/Terminal";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [showTerminal, setShowTerminal] = useState(false);
+
+  const terminalCommands = [
+    {
+      input: "whoami",
+      output: "Elson Johnson - AWS DevSecOps Engineer",
+      delay: 50,
+    },
+    {
+      input: "cat about.txt",
+      output: <About />,
+      delay: 50,
+    },
+    {
+      input: "ls -la skills/",
+      output: <Skills />,
+      delay: 50,
+    },
+    {
+      input: "cat experience.log",
+      output: <Experience />,
+      delay: 50,
+    },
+    {
+      input: "cat contact.sh",
+      output: <Contact />,
+      delay: 50,
+    },
+  ];
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div className="app">
+      <Hero />
+      
+      <div className="terminal-trigger">
+        <button
+          className="start-button"
+          onClick={() => setShowTerminal(true)}
+        >
+          <span className="prompt-symbol">$</span> Initialize Portfolio
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+      {showTerminal && <Terminal commands={terminalCommands} />}
+    </div>
+  );
 }
 
-export default App
+export default App;

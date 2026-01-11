@@ -1,68 +1,531 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  color-scheme: dark;
+  --terminal-bg: #0c0c0c;
+  --terminal-header: #1e1e1e;
+  --terminal-green: #00ff41;
+  --terminal-cyan: #00d9ff;
+  --terminal-yellow: #ffd700;
+  --terminal-red: #ff073a;
+  --terminal-white: #e5e7eb;
+  --terminal-gray: #6b7280;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+  background-color: var(--terminal-bg);
+  color: var(--terminal-white);
+  font-family: 'Courier New', 'Consolas', 'Monaco', monospace;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.app {
   min-height: 100vh;
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Hero Section */
+.ascii-art {
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
+.ascii-art pre {
+  color: var(--terminal-green);
+  font-size: 0.8rem;
+  line-height: 1.2;
+  text-shadow: 0 0 10px var(--terminal-green);
+}
+
+.hero-intro {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.hero-intro h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.name-highlight {
+  color: var(--terminal-cyan);
+  text-shadow: 0 0 20px var(--terminal-cyan);
+}
+
+.role {
+  color: var(--terminal-yellow);
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.tagline {
+  color: var(--terminal-gray);
+  font-size: 1rem;
+}
+
+/* Terminal Trigger Button */
+.terminal-trigger {
+  text-align: center;
+  margin: 3rem 0;
+}
+
+.start-button {
+  background: transparent;
+  border: 2px solid var(--terminal-green);
+  color: var(--terminal-green);
+  padding: 1rem 2rem;
   font-family: inherit;
-  background-color: #1a1a1a;
+  font-size: 1.1rem;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 5px var(--terminal-green);
+  box-shadow: 0 0 10px var(--terminal-green);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.start-button:hover {
+  background: var(--terminal-green);
+  color: var(--terminal-bg);
+  text-shadow: none;
+  box-shadow: 0 0 20px var(--terminal-green);
+}
+
+.prompt-symbol {
+  margin-right: 0.5rem;
+}
+
+/* Terminal Component */
+.terminal {
+  background: var(--terminal-bg);
+  border: 2px solid var(--terminal-green);
+  border-radius: 8px;
+  margin: 2rem auto;
+  max-width: 1200px;
+  box-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+}
+
+.terminal-header {
+  background: var(--terminal-header);
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid var(--terminal-green);
+}
+
+.terminal-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.terminal-buttons span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: block;
+}
+
+.btn-close {
+  background: #ff5f56;
+}
+
+.btn-minimize {
+  background: #ffbd2e;
+}
+
+.btn-maximize {
+  background: #27c93f;
+}
+
+.terminal-title {
+  color: var(--terminal-gray);
+  font-size: 0.9rem;
+}
+
+.terminal-body {
+  padding: 1.5rem;
+  min-height: 300px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.terminal-line {
+  margin-bottom: 1.5rem;
+}
+
+.terminal-prompt {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.prompt-user {
+  color: var(--terminal-green);
+}
+
+.prompt-separator {
+  color: var(--terminal-white);
+}
+
+.prompt-path {
+  color: var(--terminal-cyan);
+}
+
+.terminal-command {
+  color: var(--terminal-white);
+  margin-left: 0.5rem;
+}
+
+.cursor {
+  animation: blink 1s infinite;
+  color: var(--terminal-green);
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.terminal-output {
+  margin-left: 1rem;
+  color: var(--terminal-white);
+}
+
+/* Section Styling */
+.section-title {
+  color: var(--terminal-cyan);
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--terminal-green);
+  padding-bottom: 0.5rem;
+}
+
+/* About Section */
+.about-section {
+  margin: 2rem 0;
+}
+
+.about-content {
+  padding: 1rem;
+}
+
+.info-block {
+  margin-bottom: 2rem;
+}
+
+.about-text {
+  color: var(--terminal-white);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.subsection-title {
+  color: var(--terminal-yellow);
+  font-size: 1.3rem;
+  margin: 1.5rem 0 1rem 0;
+}
+
+.competencies-list,
+.certifications-list {
+  list-style: none;
+  padding-left: 1rem;
+}
+
+.competencies-list li,
+.certifications-list li {
+  padding: 0.5rem 0;
+  color: var(--terminal-white);
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.competencies-list li:before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--terminal-green);
+}
+
+.cert-icon {
+  color: var(--terminal-green);
+  margin-right: 0.5rem;
+}
+
+/* Skills Section */
+.skills-section {
+  margin: 2rem 0;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.skill-category {
+  background: rgba(0, 255, 65, 0.05);
+  border: 1px solid var(--terminal-green);
+  padding: 1.5rem;
+  border-radius: 4px;
+}
+
+.category-title {
+  color: var(--terminal-yellow);
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.skills-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.skill-item {
+  margin-bottom: 0.5rem;
+}
+
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  color: var(--terminal-white);
+}
+
+.skill-name {
+  font-size: 0.9rem;
+}
+
+.skill-percentage {
+  color: var(--terminal-cyan);
+  font-size: 0.85rem;
+}
+
+.skill-bar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.skill-progress {
+  height: 100%;
+  background: linear-gradient(90deg, var(--terminal-green), var(--terminal-cyan));
+  border-radius: 4px;
+  transition: width 1s ease-out;
+  box-shadow: 0 0 10px var(--terminal-green);
+}
+
+/* Experience Section */
+.experience-section {
+  margin: 2rem 0;
+}
+
+.experience-timeline {
+  padding: 1rem;
+}
+
+.experience-item {
+  margin-bottom: 2.5rem;
+  padding: 1.5rem;
+  border-left: 3px solid var(--terminal-green);
+  background: rgba(0, 255, 65, 0.05);
+  position: relative;
+}
+
+.experience-item:before {
+  content: "●";
+  position: absolute;
+  left: -8px;
+  top: 1.5rem;
+  color: var(--terminal-green);
+  font-size: 1rem;
+  background: var(--terminal-bg);
+}
+
+.experience-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.experience-role {
+  color: var(--terminal-cyan);
+  font-size: 1.2rem;
+  margin-bottom: 0.25rem;
+}
+
+.experience-company {
+  color: var(--terminal-yellow);
+  font-size: 1rem;
+}
+
+.experience-duration {
+  color: var(--terminal-gray);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.experience-points {
+  list-style: none;
+  padding-left: 0;
+}
+
+.experience-points li {
+  padding: 0.5rem 0;
+  color: var(--terminal-white);
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.bullet {
+  position: absolute;
+  left: 0;
+  color: var(--terminal-green);
+}
+
+/* Contact Section */
+.contact-section {
+  margin: 2rem 0;
+}
+
+.contact-content {
+  padding: 1rem;
+}
+
+.contact-intro {
+  color: var(--terminal-gray);
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.contact-methods {
+  margin: 2rem 0;
+}
+
+.contact-item {
+  display: flex;
+  gap: 1rem;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  align-items: center;
+}
+
+.contact-label {
+  color: var(--terminal-yellow);
+  min-width: 100px;
+  font-weight: bold;
+}
+
+.contact-value {
+  color: var(--terminal-white);
+}
+
+.contact-link {
+  color: var(--terminal-green);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.contact-link:hover {
+  color: var(--terminal-cyan);
+  text-shadow: 0 0 10px var(--terminal-cyan);
+}
+
+.download-resume {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.resume-button {
+  background: transparent;
+  border: 2px solid var(--terminal-green);
+  color: var(--terminal-green);
+  padding: 0.75rem 2rem;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.resume-button:hover {
+  background: var(--terminal-green);
+  color: var(--terminal-bg);
+  box-shadow: 0 0 20px var(--terminal-green);
+  text-decoration: none;
+}
+
+.button-icon {
+  font-size: 1.2rem;
+}
+
+/* Scrollbar Styling */
+.terminal-body::-webkit-scrollbar {
+  width: 10px;
+}
+
+.terminal-body::-webkit-scrollbar-track {
+  background: var(--terminal-bg);
+}
+
+.terminal-body::-webkit-scrollbar-thumb {
+  background: var(--terminal-green);
+  border-radius: 5px;
+}
+
+.terminal-body::-webkit-scrollbar-thumb:hover {
+  background: var(--terminal-cyan);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app {
+    padding: 1rem 0.5rem;
   }
-  a:hover {
-    color: #747bff;
+
+  .ascii-art pre {
+    font-size: 0.5rem;
   }
-  button {
-    background-color: #f9f9f9;
+
+  .hero-intro h1 {
+    font-size: 1.8rem;
+  }
+
+  .role {
+    font-size: 1rem;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .experience-header {
+    flex-direction: column;
+  }
+
+  .terminal-body {
+    padding: 1rem;
+  }
+
+  .section-title {
+    font-size: 1.4rem;
   }
 }
